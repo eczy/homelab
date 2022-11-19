@@ -1,0 +1,1 @@
+This image is used exclusively to generate tokens and certs for bootstrapping the cluster. It should not be used for any other reason.

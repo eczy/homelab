@@ -1,0 +1,6 @@
+namespace: traefik-v2
+
+resources:
+- ./traefik-role.yaml
+- ./traefik-account.yaml
+- ./traefik-role-binding.yaml
