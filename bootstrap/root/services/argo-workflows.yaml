@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-workflows
+  name: argo
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -13,4 +13,4 @@ spec:
     path: bootstrap/argo-workflows
   destination:
     server: https://kubernetes.default.svc
-    namespace: argo-workflows
+    namespace: argo
