@@ -13,9 +13,9 @@ patchesJson6902:
     version: v1
     kind: Deployment
     name: argo-server
-  path: patches/argo-deployment-server-args.yaml
+  path: patches/argo-deployment-managed-namespace.yaml
 - target:
     version: v1
     kind: Deployment
     name: workflow-controller
-  path: patches/argo-deployment-server-args.yaml
+  path: patches/argo-deployment-managed-namespace.yaml
