@@ -3,4 +3,4 @@ kind: Kustomization
 
 namespace: argo-rollouts
 bases:
-- https://github.com/argoproj/argo-rollouts/tree/v1.3.1/manifests/namespace-install
+- https://github.com/argoproj/argo-rollouts/tree/v1.3.1/manifests/install.yaml
