@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-rollouts
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: REPLACE-BY-PATCH
+    targetRevision: master
+    path: bootstrap/argo-rollouts
+  destination:
+    server: REPLACE-BY-PATCH
+    namespace: argo-rollouts

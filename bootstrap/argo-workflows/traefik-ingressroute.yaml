@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argo-server
+  namespace: argo
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`argo.home.lan`)
+      priority: 10
+      services:
+        - name: argo-server
+          port: 2746
+          scheme: https
+          serversTransport: argo-server-transport
+  tls:
+    certResolver: default

@@ -1,0 +1,12 @@
+metadata:
+  name: bootstrap
+
+resources:
+- services/argo-workflows.yaml
+- services/argo-rollouts.yaml
+- services/argo-events.yaml
+
+patches:
+- path: values.yaml
+  target:
+    kind: Application
