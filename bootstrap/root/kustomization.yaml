@@ -5,3 +5,8 @@ resources:
 - services/argo-workflows.yaml
 - services/argo-rollouts.yaml
 - services/argo-events.yaml
+
+patches:
+- path: patches/patch-application-common.yaml
+  target:
+    kind: Application
