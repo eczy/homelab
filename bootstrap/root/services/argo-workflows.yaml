@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: REPLACE-BY-PATCH
+    repoURL: https://github.com/eczy/homelab
     targetRevision: master
     path: bootstrap/argo-workflows
   destination:
-    server: REPLACE-BY-PATCH
+    server: https://kubernetes.default.svc
     namespace: argo-workflows
