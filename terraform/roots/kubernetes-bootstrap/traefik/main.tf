@@ -23,4 +23,5 @@ resource "helm_release" "traefik" {
   repository = "https://traefik.github.io/charts"
   chart      = "traefik"
   namespace  = "traefik-v2"
+  version    = "20.3.0"
 }

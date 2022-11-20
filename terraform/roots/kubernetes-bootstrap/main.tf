@@ -9,7 +9,3 @@ module "traefik" {
 module "argocd" {
   source = "./argocd"
 }
-
-module "argo" {
-  source = "./argo"
-}

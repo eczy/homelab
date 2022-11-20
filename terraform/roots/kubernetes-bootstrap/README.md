@@ -17,7 +17,6 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_argo"></a> [argo](#module\_argo) | ./argo | n/a |
 | <a name="module_argocd"></a> [argocd](#module\_argocd) | ./argocd | n/a |
 | <a name="module_metallb"></a> [metallb](#module\_metallb) | ./metallb | n/a |
 | <a name="module_traefik"></a> [traefik](#module\_traefik) | ./traefik | n/a |

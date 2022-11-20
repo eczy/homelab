@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: argocd
 resources:
 - https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.2/manifests/ha/install.yaml
-- ./traefik-ingressroute.yaml
+- traefik-ingressroute.yaml
 
 patchesStrategicMerge:
-- ./patches/argocd-cmd-params-cm-patch.yaml
+- patches/argocd-cmd-params-cm-patch.yaml
