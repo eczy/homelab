@@ -4,6 +4,12 @@ resource "kubernetes_namespace" "argo_namespace" {
   }
 }
 
+resource "kubernetes_namespace" "argo_managed_namespace" {
+  metadata {
+    name = "argo-workflows"
+  }
+}
+
 module "kustomize_apply" {
   source = "../../../modules/kubernetes/kustomize_apply"
   depends_on = [

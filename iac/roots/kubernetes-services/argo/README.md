@@ -23,6 +23,7 @@
 
 | Name | Type |
 |------|------|
+| [kubernetes_namespace.argo_managed_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_namespace.argo_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 
 ## Inputs

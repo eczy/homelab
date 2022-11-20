@@ -5,7 +5,7 @@ metadata:
   namespace: argo
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - kind: Rule
       match: Host(`argo.home.lan`)
@@ -13,12 +13,7 @@ spec:
       services:
         - name: argo-server
           port: 2746
-    # - kind: Rule
-    #   match: Host(`argo.home.lan`) && Headers(`Content-Type`, `application/grpc`)
-    #   priority: 11
-    #   services:
-    #     - name: argo-server
-    #       port: 80
-    #       scheme: h2c
-  # tls:
-  #   certResolver: default
+          scheme: https
+          serversTransport: argo-server-transport
+  tls:
+    certResolver: default
