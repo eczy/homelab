@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitea
+  namespace: gitea
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: gitea
+    repoURL: https://dl.gitea.io/charts/
+    targetRevision: 6.0.3
+    helm:
+      releaseName: gitea
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitea
