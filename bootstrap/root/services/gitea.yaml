@@ -13,9 +13,9 @@ spec:
     targetRevision: 6.0.3
     helm:
       releaseName: gitea
-    parameters:
-    - name: "persistence.storageClass"
-      value: local-storage
+      parameters:
+      - name: "persistence.storageClass"
+        value: local-storage
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
