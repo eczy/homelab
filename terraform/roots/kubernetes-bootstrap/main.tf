@@ -2,8 +2,12 @@ module "metallb" {
   source = "./metallb"
 }
 
-module "traefik" {
-  source = "./traefik"
+module "traefik_ingress" {
+  source = "./traefik-ingress"
+}
+
+module "nfs_sc_provisioner" {
+  source = "./nfs-subdir-external-provisioner"
 }
 
 module "argocd" {

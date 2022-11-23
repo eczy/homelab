@@ -8,19 +8,15 @@ variable "proxmox_target_node" {
   type        = string
 }
 
-variable "clone_vm_name" {
-  description = "VM template from which nodes will be copied."
-  type        = string
-}
-
 variable "control_plane_nodes" {
   description = "Control plane node configuration."
   type = object({
-    count    = number
-    cores    = number
-    sockets  = number
-    memory   = number
-    bootdisk = string
+    count         = number
+    clone_vm_name = string
+    cores         = number
+    sockets       = number
+    memory        = number
+    bootdisk      = string
     networks = list(object({
       model     = string
       macaddr   = optional(string)
@@ -55,11 +51,52 @@ variable "control_plane_nodes" {
 variable "worker_nodes" {
   description = "Worker node configuration."
   type = object({
-    count    = number
-    cores    = number
-    sockets  = number
-    memory   = number
-    bootdisk = string
+    count         = number
+    clone_vm_name = string
+    cores         = number
+    sockets       = number
+    memory        = number
+    bootdisk      = string
+    networks = list(object({
+      model     = string
+      macaddr   = optional(string)
+      bridge    = optional(string)
+      tag       = optional(number)
+      firewall  = optional(bool)
+      rate      = optional(number)
+      queues    = optional(number)
+      link_down = optional(bool)
+    }))
+    disks = list(object({
+      type        = string
+      storage     = string
+      size        = string
+      format      = optional(string)
+      cache       = optional(string)
+      backup      = optional(number)
+      iothread    = optional(number)
+      replicate   = optional(number)
+      ssd         = optional(number)
+      discard     = optional(string)
+      mbps        = optional(number)
+      mbps_rd     = optional(number)
+      mbps_rd_max = optional(number)
+      mbps_wr     = optional(number)
+      mbps_wr_max = optional(number)
+      media       = optional(string)
+    }))
+  })
+}
+
+variable "nfs_servers" {
+  description = "Worker node configuration."
+  type = object({
+    count         = number
+    clone_vm_name = string
+    cores         = number
+    sockets       = number
+    memory        = number
+    bootdisk      = string
     networks = list(object({
       model     = string
       macaddr   = optional(string)

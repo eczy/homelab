@@ -1,5 +1,3 @@
-# traefik
-
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -12,7 +10,6 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | >=0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >=0 |
 
 ## Modules
@@ -25,8 +22,7 @@
 
 | Name | Type |
 |------|------|
-| [helm_release.traefik](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubernetes_namespace.traefik_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
+| [kubernetes_namespace.nfs_provisioner_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 
 ## Inputs
 

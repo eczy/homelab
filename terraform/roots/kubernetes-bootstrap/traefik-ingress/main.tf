@@ -13,7 +13,7 @@ module "kustomize_apply" {
   kustomize_path = "${path.module}/kustomize/base"
 }
 
-resource "helm_release" "traefik" {
+resource "helm_release" "traefik_helm" {
   depends_on = [
     kubernetes_namespace.traefik_namespace,
     module.kustomize_apply,
@@ -23,5 +23,5 @@ resource "helm_release" "traefik" {
   repository = "https://traefik.github.io/charts"
   chart      = "traefik"
   namespace  = "traefik-v2"
-  version    = "20.3.0"
+  version    = "20.5.1"
 }

@@ -1,4 +1,4 @@
-source "proxmox-iso" "debian-11-k8s-base" {
+source "proxmox-iso" "debian-11-nfs-base" {
   proxmox_url              = "${var.proxmox_host}"
   insecure_skip_tls_verify = true
 

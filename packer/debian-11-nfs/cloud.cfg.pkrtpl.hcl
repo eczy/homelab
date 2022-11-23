@@ -23,12 +23,11 @@ system_info:
 
 user:
   name: ${ci_username}
-  gecos: kubeadm
-  groups: sudo
+  gecos: kubernetes user creating persistent volumes
   sudo: "ALL=(ALL) NOPASSWD:ALL"
   shell: /bin/bash
   ssh_authorized_keys:
-    - ${ci_pubkey}
+  - ${ci_pubkey}
 
 disable_root: true
 chpasswd:
@@ -48,9 +47,20 @@ apt_reboot_if_required: true
 packages:
 - vim
 - apt-transport-https
-- ca-certificates
-- curl
-- nfs-common
+- nfs-kernel-server
+- portmap
+
+# Create kubernetes persistent volume NFS directory 
+runcmd:
+# since we cant specify the gid in cloudinit 'groups'
+- groupadd -g 9999 k8s-nfs
+- usermod -a -G ${ci_username} k8s-nfs
+- [mkdir, -p, ${nfs_export_path}]
+- [chgrp, k8s-nfs, ${nfs_export_path}]
+- chmod g+w  ${nfs_export_path}
+- echo "${nfs_export_path} ${nfs_export_string}(rw,subtree_check,all_squash,anongid=9999)" >> /etc/exports
+- [systemctl, enable, nfs-kernel-server]
+- [systemctl, restart, nfs-kernel-server]
 
 # Write out new SSH daemon configuration. Standard debian 11 configuration
 # apart from forbidding root login and disabling password authentication
@@ -85,6 +95,8 @@ cloud_config_modules:
  - ntp
  - timezone
  - disable-ec2-metadata
+ - growpart
+ - runcmd
 
 # The modules that run in the 'final' stage
 cloud_final_modules:

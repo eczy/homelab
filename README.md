@@ -12,3 +12,8 @@ TODO:
 - gitea
 - artifact registry
 - fill out readmes and terraform descriptions
+- automated proxmox environment provisioning
+- yaml linting
+- combine `kubernetes-cluster` and `kubernetes-bootstrap` root modules (need a way to securely pull down admin config for subsequent use)
+- move some of the initial bootstrapping from `kubernetes-bootstrap` to argocd bootstrapping
+- automated way of adding nfs storage classes for variable amount of servers (https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)

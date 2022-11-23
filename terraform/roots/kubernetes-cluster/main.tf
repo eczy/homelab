@@ -4,7 +4,7 @@ module "first_control_plane_node" {
   proxmox_target_node = var.proxmox_target_node
 
   vm_name       = "${var.cluster_name}-cp-first"
-  clone_vm_name = var.clone_vm_name
+  clone_vm_name = var.control_plane_nodes.clone_vm_name
   networks      = var.control_plane_nodes.networks
   disks         = var.control_plane_nodes.disks
   bootdisk      = var.control_plane_nodes.bootdisk
@@ -32,7 +32,7 @@ module "additional_control_plane_nodes" {
 
   proxmox_target_node = var.proxmox_target_node
   vm_name             = "${var.cluster_name}-cp-add-${count.index}"
-  clone_vm_name       = var.clone_vm_name
+  clone_vm_name       = var.control_plane_nodes.clone_vm_name
   networks            = var.control_plane_nodes.networks
   disks               = var.control_plane_nodes.disks
   bootdisk            = var.control_plane_nodes.bootdisk
@@ -65,7 +65,7 @@ module "worker_nodes" {
   proxmox_target_node = var.proxmox_target_node
 
   vm_name       = "${var.cluster_name}-worker-${count.index}"
-  clone_vm_name = var.clone_vm_name
+  clone_vm_name = var.worker_nodes.clone_vm_name
   networks      = var.worker_nodes.networks
   disks         = var.worker_nodes.disks
   bootdisk      = var.worker_nodes.bootdisk
@@ -87,4 +87,21 @@ module "worker_nodes" {
     # TODO: determine if this can be removed 
     module.additional_control_plane_nodes
   ]
+}
+
+module "nfs_servers" {
+  source = "../../modules/proxmox/kubernetes/nfs"
+  count  = var.nfs_servers.count
+
+  proxmox_target_node = var.proxmox_target_node
+
+  vm_name       = "${var.cluster_name}-nfs-${count.index}"
+  clone_vm_name = var.nfs_servers.clone_vm_name
+  networks      = var.nfs_servers.networks
+  disks         = var.nfs_servers.disks
+  bootdisk      = var.nfs_servers.bootdisk
+
+  cores   = var.nfs_servers.cores
+  sockets = var.nfs_servers.sockets
+  memory  = var.nfs_servers.memory
 }
