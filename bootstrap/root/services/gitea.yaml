@@ -15,7 +15,7 @@ spec:
       releaseName: gitea
       parameters:
       - name: "persistence.storageClass"
-        value: local-storage
+        value: nfs-client
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
