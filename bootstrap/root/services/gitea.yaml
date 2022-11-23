@@ -14,7 +14,9 @@ spec:
     helm:
       releaseName: gitea
       parameters:
-      - name: "persistence.storageClass"
+      - name: persistence.enabled
+        value: true
+      - name: persistence.storageClass
         value: nfs-client
   destination:
     server: https://kubernetes.default.svc
