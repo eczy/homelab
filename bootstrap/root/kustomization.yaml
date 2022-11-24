@@ -5,7 +5,7 @@ resources:
 - services/argo-workflows.yaml
 - services/argo-rollouts.yaml
 - services/argo-events.yaml
-- services/gitea.yaml
+# - services/gitea.yaml
 
 patches:
 - path: patches/patch-application-common.yaml
