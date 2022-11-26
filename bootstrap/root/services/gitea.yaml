@@ -15,7 +15,7 @@ spec:
       releaseName: gitea
       parameters:
       - name: "postgresql.livenessProbe.initialDelaySeconds"
-        value: 300
+        value: "300"
       
   destination:
     server: https://kubernetes.default.svc
