@@ -10,18 +10,18 @@
 
 | Name | Version |
 |------|---------|
+| <a name="provider_helm"></a> [helm](#provider\_helm) | >=0 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >=0 |
 
 ## Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_kustomize_apply"></a> [kustomize\_apply](#module\_kustomize\_apply) | ../../../modules/kubernetes/kustomize_apply | n/a |
+No modules.
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [helm_release.nfs_subdir_external_provisioner_helm](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubernetes_namespace.nfs_provisioner_namespace](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 
 ## Inputs

@@ -7,7 +7,7 @@ module "traefik_ingress" {
 }
 
 module "nfs_sc_provisioner" {
-  source = "./nfs-subdir-external-provisioner"
+  source = "./nfs-subdir-external-provisioner-helm"
 }
 
 module "argocd" {

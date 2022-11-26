@@ -19,7 +19,7 @@ No providers.
 |------|--------|---------|
 | <a name="module_argocd"></a> [argocd](#module\_argocd) | ./argocd | n/a |
 | <a name="module_metallb"></a> [metallb](#module\_metallb) | ./metallb | n/a |
-| <a name="module_nfs_sc_provisioner"></a> [nfs\_sc\_provisioner](#module\_nfs\_sc\_provisioner) | ./nfs-subdir-external-provisioner | n/a |
+| <a name="module_nfs_sc_provisioner"></a> [nfs\_sc\_provisioner](#module\_nfs\_sc\_provisioner) | ./nfs-subdir-external-provisioner-helm | n/a |
 | <a name="module_traefik_ingress"></a> [traefik\_ingress](#module\_traefik\_ingress) | ./traefik-ingress | n/a |
 
 ## Resources

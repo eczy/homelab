@@ -24,7 +24,7 @@ system_info:
 user:
   name: ${ci_username}
   gecos: kubernetes user creating persistent volumes
-  sudo: "ALL=(ALL) NOPASSWD:ALL"
+  // sudo: "ALL=(ALL) NOPASSWD:ALL"
   shell: /bin/bash
   ssh_authorized_keys:
   - ${ci_pubkey}
@@ -52,13 +52,9 @@ packages:
 
 # Create kubernetes persistent volume NFS directory 
 runcmd:
-# since we cant specify the gid in cloudinit 'groups'
-- groupadd -g 9999 k8s-nfs
-- usermod -a -G ${ci_username} k8s-nfs
 - [mkdir, -p, ${nfs_export_path}]
-- [chgrp, k8s-nfs, ${nfs_export_path}]
-- chmod g+w  ${nfs_export_path}
-- echo "${nfs_export_path} ${nfs_export_string}(rw,subtree_check,all_squash,anongid=9999)" >> /etc/exports
+- [chown, 1000, ${nfs_export_path}]
+- echo "${nfs_export_path} ${nfs_export_string}(rw,subtree_check,root_squash,anonuid-1000,anongid=1000)" >> /etc/exports
 - [systemctl, enable, nfs-kernel-server]
 - [systemctl, restart, nfs-kernel-server]
 
