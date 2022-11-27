@@ -30,6 +30,8 @@ spec:
         value: "\"true\""
       - name: "gitea.config.server.ROOT_URL"
         value: "https://gitea.home.lan"
+      - name: "service.ssh.annotations.metallb\\.universe\\.tf/allow-shared-ip"
+        value: "gitea-ssh"
 
   destination:
     server: https://kubernetes.default.svc
