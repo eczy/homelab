@@ -28,6 +28,8 @@ spec:
         value: "websecure"
       - name: "ingress.annotations.traefik\\.ingress\\.kubernetes\\.io/router\\.tls"
         value: "\"true\""
+      - name: "gitea.config.server.ROOT_URL"
+        value: "https://gitea.home.lan"
 
   destination:
     server: https://kubernetes.default.svc
