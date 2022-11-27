@@ -24,10 +24,10 @@ spec:
         value: "/"
       - name: "ingress.hosts[0].paths[0].pathType"
         value: "Prefix"
-      - name: "ingress.annotations"
-        value: 
-          "traefik.ingress.kubernetes.io/router.entrypoints": "websecure"
-          "traefik.ingress.kubernetes.io/router.tls": "true"
+      - name: "ingress.annotations.traefik.ingress.kubernetes.io/router.entrypoints"
+        value: "websecure"
+      - name: "traefik.ingress.kubernetes.io/router.tls"
+        value: "true"
 
   destination:
     server: https://kubernetes.default.svc
