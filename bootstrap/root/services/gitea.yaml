@@ -26,8 +26,10 @@ spec:
         value: "Prefix"
       - name: "ingress.annotations"
         value: 
-          - "traefik.ingress.kubernetes.io/router.entrypoints: websecure"
-          - "traefik.ingress.kubernetes.io/router.tls: true"
+        - "traefik.ingress.kubernetes.io/router.entrypoints: websecure"
+        - "traefik.ingress.kubernetes.io/router.tls: true"
+      - name: "gitea.config"
+        value: "server.PROTOCOL=https"
 
   destination:
     server: https://kubernetes.default.svc
