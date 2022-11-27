@@ -19,3 +19,5 @@ TODO:
 - automated way of adding nfs storage classes for variable amount of servers (https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 - move bootstrapping to another repo
 - abstract out nfs server into more general module (honestly just make most of these tf abstractions better)
+- argocd application terraform module
+- pihole dns terraform module
