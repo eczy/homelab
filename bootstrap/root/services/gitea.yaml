@@ -14,8 +14,10 @@ spec:
     helm:
       releaseName: gitea
       parameters:
+      # wait longer than usual because of slow k8s nodes
       - name: "postgresql.livenessProbe.initialDelaySeconds"
         value: "300"
+      # configure ingress
       - name: "ingress.enabled"
         value: "true"
       - name: "ingress.hosts[0].host"
@@ -24,10 +26,12 @@ spec:
         value: "/"
       - name: "ingress.hosts[0].paths[0].pathType"
         value: "Prefix"
+      # different domain for ssh so that traefik can handle http
       - name: "gitea.config.server.ROOT_URL"
         value: "https://gitea.home.lan"
       - name: "gitea.config.server.SSH_DOMAIN"
         value: "ssh.gitea.home.lan"
+      # configure ssh service
       - name: "service.ssh.type"
         value: "LoadBalancer"
       - name: "service.ssh.annotations.metallb\\.universe\\.tf/allow-shared-ip"
@@ -38,6 +42,12 @@ spec:
         value: "Local"
       - name: "signing.enabled"
         value: "true"
+      # enable metrics
+      - name: "gitea.metrics.enabled"
+        value: "true"
+      - name: "gitea.metrics.serviceMonitor.enabled"
+        value: "true"
+
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
