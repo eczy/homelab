@@ -33,8 +33,11 @@ spec:
       - name: "service.ssh.type"
         value: "LoadBalancer"
       - name: "service.ssh.annotations.metallb\\.universe\\.tf/allow-shared-ip"
-        value: "gitea-ssh"
-
+        value: "gitea"
+      - name: "service.http.type"
+        value: "LoadBalancer"
+      - name: "service.http.annotations.metallb\\.universe\\.tf/allow-shared-ip"
+        value: "gitea"
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
