@@ -31,7 +31,7 @@ spec:
       - name: "service.ssh.annotations.metallb\\.universe\\.tf/allow-shared-ip"
         value: "gitea"
       - name: "service.ssh.loadBalancerIP"
-        value: "192.168.50.201"
+        value: "192.168.50.200"
       - name: "service.ssh.externalTrafficPolicy"
         value: "Local"
       # - name: "service.http.type"
