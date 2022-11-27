@@ -27,7 +27,7 @@ spec:
       - name: "ingress.annotations.traefik\\.ingress\\.kubernetes\\.io/router\\.entrypoints"
         value: "websecure"
       - name: "ingress.annotations.traefik\\.ingress\\.kubernetes\\.io/router\\.tls"
-        value: "true"
+        value: "\"true\""
 
   destination:
     server: https://kubernetes.default.svc
