@@ -20,6 +20,11 @@ spec:
         value: "true"
       - name: "ingress.hosts[0].host"
         value: "gitea.home.lan"
+      - name: "ingress.hosts[0].paths[0].path"
+        value: "/"
+      - name: "ingress.hosts[0].paths[0].pathType"
+        value: "Prefix"
+
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
