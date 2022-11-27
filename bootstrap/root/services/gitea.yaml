@@ -14,20 +14,10 @@ spec:
     helm:
       releaseName: gitea
       parameters:
+      - name: "initPreScript"
+        value: "gitea cert --host gitea.home.lan"
       - name: "postgresql.livenessProbe.initialDelaySeconds"
         value: "300"
-      # - name: "ingress.enabled"
-      #   value: "true"
-      # - name: "ingress.hosts[0].host"
-      #   value: "gitea.home.lan"
-      # - name: "ingress.hosts[0].paths[0].path"
-      #   value: "/"
-      # - name: "ingress.hosts[0].paths[0].pathType"
-      #   value: "Prefix"
-      # - name: "ingress.annotations.traefik\\.ingress\\.kubernetes\\.io/router\\.entrypoints"
-      #   value: "websecure"
-      # - name: "ingress.annotations.traefik\\.ingress\\.kubernetes\\.io/router\\.tls"
-      #   value: "\"true\""
       - name: "gitea.config.server.ROOT_URL"
         value: "https://gitea.home.lan"
       - name: "service.ssh.type"
@@ -46,6 +36,20 @@ spec:
         value: "Local"
       - name: "service.http.loadBalancerIP"
         value: "192.168.50.201"
+      - name: "gitea.config.PROTOCOL"
+        value: "https"
+      - name: "gitea.config.HTTP_PORT"
+        value: "443"
+      - name: "gitea.config.CERT_FILE"
+        value: "/cert.pem"
+      - name: "gitea.config.KEY_FILE"
+        value: "/key.pem"
+      - name: "gitea.config.ROOT_URL"
+        value: "https://gitea.home.lan"
+      - name: "gitea.server.REDIRECT_OTHER_PORT"
+        value: "true"
+      - name: "gitea.server.PORT_TO_REDIRECT"
+        value: "80"
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
