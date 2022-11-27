@@ -16,7 +16,10 @@ spec:
       parameters:
       - name: "postgresql.livenessProbe.initialDelaySeconds"
         value: "300"
-      
+      - name: "ingress.enabled"
+        value: "true"
+      - name: "ingress.hosts[0].host"
+        value: "gitea.home.lan"
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
