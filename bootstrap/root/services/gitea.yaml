@@ -36,6 +36,8 @@ spec:
         value: "192.168.50.201"
       - name: "service.ssh.externalTrafficPolicy"
         value: "Local"
+      - name: "signing.enabled"
+        value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea

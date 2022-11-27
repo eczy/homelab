@@ -24,4 +24,9 @@ resource "helm_release" "traefik_helm" {
   chart      = "traefik"
   namespace  = "traefik-v2"
   version    = "20.5.1"
+
+  set {
+    name  = "providers.kubernetesIngress.publishedService.enabled"
+    value = true
+  }
 }
