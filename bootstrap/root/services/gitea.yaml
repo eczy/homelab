@@ -42,6 +42,8 @@ spec:
         value: "Local"
       - name: "service.http.loadBalancerIP"
         value: "192.168.50.201"
+      - name: "service.http.port"
+        value: "443"
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea
