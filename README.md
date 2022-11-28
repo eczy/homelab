@@ -9,7 +9,6 @@ TODO:
 - promethus + grafana monitoring stack
 - documentation for terraform modules
 - automated cluster backups
-- gitea
 - artifact registry
 - fill out readmes and terraform descriptions
 - automated proxmox environment provisioning

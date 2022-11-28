@@ -4,20 +4,9 @@ resource "kubernetes_namespace" "nfs_provisioner_namespace" {
   }
 }
 
-
-# module "kustomize_apply" {
-#   source = "../../../modules/kubernetes/kustomize_apply"
-#   depends_on = [
-#     kubernetes_namespace.nfs_provisioner_namespace,
-#   ]
-
-#   kustomize_path = "${path.module}/kustomize"
-# }
-
 resource "helm_release" "nfs_subdir_external_provisioner_helm" {
   depends_on = [
     kubernetes_namespace.nfs_provisioner_namespace,
-    # module.kustomize_apply,
   ]
 
   name       = "nfs-subdir-external-provisioner"

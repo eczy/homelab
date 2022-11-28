@@ -47,7 +47,6 @@ spec:
         value: "true"
       - name: "gitea.metrics.serviceMonitor.enabled"
         value: "true"
-
   destination:
     server: https://kubernetes.default.svc
     namespace: gitea

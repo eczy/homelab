@@ -6,6 +6,7 @@ resources:
 - services/argo-rollouts.yaml
 - services/argo-events.yaml
 - services/gitea.yaml
+- services/kube-prometheus-stack.yaml
 
 patches:
 - path: patches/patch-application-common.yaml
