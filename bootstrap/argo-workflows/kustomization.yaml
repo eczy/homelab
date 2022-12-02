@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: argo
 resources:
 # - ns-argo-workflows.yaml
-- https://github.com/argoproj/argo-workflows/releases/download/v3.4.3/install.yaml
-# - traefik-servertransport.yaml
+- https://github.com/argoproj/argo-workflows/releases/download/v3.3.10/install.yaml
+- traefik-servertransport.yaml
 - traefik-ingressroute.yaml
 
 # patchesJson6902:
