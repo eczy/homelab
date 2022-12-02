@@ -54,7 +54,7 @@ packages:
 runcmd:
 - [mkdir, -p, ${nfs_export_path}]
 - [chown, 1000, ${nfs_export_path}]
-- echo "${nfs_export_path} ${nfs_export_string}(rw,subtree_check,root_squash,anonuid-1000,anongid=1000)" >> /etc/exports
+- echo "${nfs_export_path} ${nfs_export_string}(rw,subtree_check,root_squash,anonuid=1000,anongid=1000)" >> /etc/exports
 - [systemctl, enable, nfs-kernel-server]
 - [systemctl, restart, nfs-kernel-server]
 
