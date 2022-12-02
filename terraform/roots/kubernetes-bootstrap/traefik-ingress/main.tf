@@ -29,4 +29,10 @@ resource "helm_release" "traefik_helm" {
     name  = "providers.kubernetesIngress.publishedService.enabled"
     value = true
   }
+
+  # force https
+  set {
+    name  = "ports.web.redirectTo"
+    value = "websecure"
+  }
 }
