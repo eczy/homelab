@@ -8,7 +8,6 @@ TODO:
 - automation around argo/argocd/argoevents
 - promethus + grafana monitoring stack
 - documentation for terraform modules
-- automated cluster backups
 - artifact registry
 - fill out readmes and terraform descriptions
 - automated proxmox environment provisioning
@@ -16,7 +15,11 @@ TODO:
 - combine `kubernetes-cluster` and `kubernetes-bootstrap` root modules (need a way to securely pull down admin config for subsequent use)
 - move some of the initial bootstrapping from `kubernetes-bootstrap` to argocd bootstrapping
 - automated way of adding nfs storage classes for variable amount of servers (https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
-- move bootstrapping to another repo
 - abstract out nfs server into more general module (honestly just make most of these tf abstractions better)
 - argocd application terraform module
 - pihole dns terraform module
+- generate bootstrap secrets
+- change argocd app-of-apps to terraform managed so that terraform can handle secrets
+- set static ip for pihole and vault
+- add cloud-init config via proxmox instead of packer to simplify base images
+- HA vault

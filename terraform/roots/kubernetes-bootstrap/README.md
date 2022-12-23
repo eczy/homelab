@@ -18,6 +18,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_argocd"></a> [argocd](#module\_argocd) | ./argocd | n/a |
+| <a name="module_hashi_vault"></a> [hashi\_vault](#module\_hashi\_vault) | ./hashi-vault | n/a |
 | <a name="module_kube_prometheus"></a> [kube\_prometheus](#module\_kube\_prometheus) | ./kube-prometheus | n/a |
 | <a name="module_metallb"></a> [metallb](#module\_metallb) | ./metallb | n/a |
 | <a name="module_nfs_sc_provisioner"></a> [nfs\_sc\_provisioner](#module\_nfs\_sc\_provisioner) | ./nfs-subdir-external-provisioner-helm | n/a |

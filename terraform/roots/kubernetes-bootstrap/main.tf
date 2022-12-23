@@ -29,3 +29,7 @@ module "kube_prometheus" {
 
   source = "./kube-prometheus"
 }
+
+module "hashi_vault" {
+  source = "./hashi-vault"
+}
