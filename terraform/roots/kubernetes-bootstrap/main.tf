@@ -30,6 +30,10 @@ module "kube_prometheus" {
   source = "./kube-prometheus"
 }
 
+module "velero_backup" {
+  source = "./velero"
+}
+
 module "hashi_vault" {
   source = "./hashi-vault"
 }

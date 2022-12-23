@@ -30,6 +30,11 @@ resource "helm_release" "vault" {
     value = true
   }
 
+  set {
+    name  = "ingress.enabled"
+    value = true
+  }
+
   # only here temporarily for minikube testing - remove for cluster with >1 node
   set {
     name  = "server.affinity"

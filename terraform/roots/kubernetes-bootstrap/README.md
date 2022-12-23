@@ -23,6 +23,7 @@ No providers.
 | <a name="module_metallb"></a> [metallb](#module\_metallb) | ./metallb | n/a |
 | <a name="module_nfs_sc_provisioner"></a> [nfs\_sc\_provisioner](#module\_nfs\_sc\_provisioner) | ./nfs-subdir-external-provisioner-helm | n/a |
 | <a name="module_traefik_ingress"></a> [traefik\_ingress](#module\_traefik\_ingress) | ./traefik-ingress | n/a |
+| <a name="module_velero_backup"></a> [velero\_backup](#module\_velero\_backup) | ./velero | n/a |
 
 ## Resources
 
