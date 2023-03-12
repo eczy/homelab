@@ -1,0 +1,6 @@
+---
+gitea_http_domain: gitea.home.lan
+gitea_root_url: http://gitea.home.lan
+gitea_http_listen: 0.0.0.0
+gitea_http_port: 80
+gitea_user: gitea

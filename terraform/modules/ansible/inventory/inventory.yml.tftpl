@@ -1,0 +1,8 @@
+---
+%{ for name, hosts in groups ~}
+${name}:
+  hosts:
+    %{ for host in hosts}
+    ${host}:
+    %{ endfor ~}
+%{ endfor ~}

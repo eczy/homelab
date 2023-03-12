@@ -1,0 +1,3 @@
+---
+- src: https://github.com/thomas-maurice/ansible-role-gitea
+  name: ansible-role-gitea

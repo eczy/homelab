@@ -23,3 +23,6 @@ TODO:
 - set static ip for pihole and vault
 - add cloud-init config via proxmox instead of packer to simplify base images
 - HA vault
+- Refactor shell provisioners to use Ansible
+- move cloudinit stuff into common ansible role
+- edit Gitea playbook to make config read only to gitea user

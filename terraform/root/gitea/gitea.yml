@@ -1,0 +1,4 @@
+---
+- hosts: gitea
+  roles:
+  - ansible-role-gitea
