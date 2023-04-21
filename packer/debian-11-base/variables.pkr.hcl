@@ -91,15 +91,3 @@ variable "iso_storage_pool" {
   type        = string
   default     = "local"
 }
-
-variable "ci_username" {
-  description = "Non-root user to create with passwordless sudo."
-  type        = string
-  default     = "debian"
-}
-
-variable "ci_pubkey" {
-  description = "Public ssh key assigned to the cloudinit user."
-  type        = string
-  sensitive   = true
-}
