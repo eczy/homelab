@@ -17,9 +17,8 @@ resource "google_service_account" "gitea_backup" {
   project      = data.google_project.gitea_backup.project_id
 }
 
-resource "google_storage_hmac_key" "key" {
-  service_account_email = google_service_account.gitea_backup.email
-  project               = data.google_project.gitea_backup.project_id
+resource "google_service_account_key" "gitea_backup" {
+  service_account_id = google_service_account.gitea_backup.id
 }
 
 resource "google_storage_bucket" "bucket" {
@@ -28,18 +27,25 @@ resource "google_storage_bucket" "bucket" {
   project  = data.google_project.gitea_backup.project_id
 }
 
+resource "google_storage_bucket_iam_member" "gitea_backup_member" {
+  bucket = google_storage_bucket.bucket.id
+  role   = "roles/storage.objectAdmin"
+  member = google_service_account.gitea_backup.member
+}
+
 module "inventory" {
   source = "../../modules/ansible/inventory"
 
-  name = "gitea"
   groups = {
     gitea = [local.gitea_url]
   }
-  group_vars = {
-    gitea = {
+  host_vars = {
+    "gitea.home.lan" = {
       gitea_user : "gitea"
       gitea_http_domain : "gitea.home.lan"
       gitea_root_url : "http://gitea.home.lan"
+      restic_google_project_id : google_service_account_key.gitea_backup.id
+      restic_google_application_credentials : google_service_account_key.gitea_backup.private_key
     }
   }
 }

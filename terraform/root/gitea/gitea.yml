@@ -1,4 +1,58 @@
 ---
 - hosts: gitea
   roles:
-  - ansible-role-gitea
+  - thomas-maurice.gitea
+  - nginxinc.nginx
+- hosts: gitea
+  tasks:
+  - name: Create NGINX config
+    file:
+      path: /etc/nginx/nginx.conf
+      state: touch
+  - name: Add Gitea to NGINX config
+    ansible.builtin.blockinfile:
+      path: /etc/nginx/nginx.conf
+      insertafter: "http {"
+      block: |
+        server {
+          listen 80;
+          server_name {{ gitea_http_domain }};
+
+          location / {
+              proxy_pass http://localhost:3000;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+          }
+        }
+  - name: Restart nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
+
+# gcloud install
+- name: Create gcloud temp install path
+  hosts: gitea
+  tasks:
+  - name: Create tmp path
+    file:
+      path: "/tmp/install_cloud"
+      state: directory
+      mode: 0777
+- name: Install gcloud
+  hosts: gitea
+  roles:
+  - role: ansible.install-gcloud
+    gcloud_tmp_path: /tmp/install_gcloud
+    gcloud_archive_name: google-cloud-cli-422.0.0-linux-x86_64.tar.gz
+- name: Remove gcloud temp install path
+  hosts: gitea
+  tasks:
+  - name: Remove tmp path
+    file:
+      path: "/tmp/install_gcloud"
+      state: absent
+- hosts: gitea
+  roles:
+  - eczy.restic

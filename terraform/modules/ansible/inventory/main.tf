@@ -2,7 +2,7 @@ resource "local_sensitive_file" "inventory" {
   content = templatefile("${path.module}/inventory.yml.tftpl", {
     groups = var.groups
   })
-  filename = "${path.root}/inventories/${var.name}/hosts.yml"
+  filename = "${path.root}/inventory/hosts.yml"
 }
 
 resource "local_sensitive_file" "group_vars" {
@@ -10,7 +10,7 @@ resource "local_sensitive_file" "group_vars" {
   content = templatefile("${path.module}/group_vars.yml.tftpl", {
     vars = each.value
   })
-  filename = "${path.root}/inventories/${var.name}/group_vars/${each.key}.yml"
+  filename = "${path.root}/group_vars/${each.key}.yml"
 }
 
 resource "local_sensitive_file" "host_vars" {
@@ -18,5 +18,5 @@ resource "local_sensitive_file" "host_vars" {
   content = templatefile("${path.module}/host_vars.yml.tftpl", {
     vars = each.value
   })
-  filename = "${path.root}/inventories/${var.name}/host_vars/${each.key}.yml"
+  filename = "${path.root}/host_vars/${each.key}.yml"
 }

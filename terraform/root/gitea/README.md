@@ -27,8 +27,9 @@
 | Name | Type |
 |------|------|
 | [google_service_account.gitea_backup](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
+| [google_service_account_key.gitea_backup](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_key) | resource |
 | [google_storage_bucket.bucket](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket) | resource |
-| [google_storage_hmac_key.key](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_hmac_key) | resource |
+| [google_storage_bucket_iam_member.gitea_backup_member](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_iam_member) | resource |
 | [pihole_dns_record.gitea_record](https://registry.terraform.io/providers/ryanwholey/pihole/latest/docs/resources/dns_record) | resource |
 | [google_project.gitea_backup](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project) | data source |
 

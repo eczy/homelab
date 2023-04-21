@@ -45,9 +45,9 @@ variable "disks" {
     type        = string
     storage     = string
     size        = string
-    format      = optional(string)
-    cache       = optional(string)
-    backup      = optional(number)
+    format      = optional(string, "raw")
+    cache       = optional(string, "none")
+    backup      = optional(bool, true)
     iothread    = optional(number)
     replicate   = optional(number)
     ssd         = optional(number)
@@ -84,3 +84,19 @@ variable "memory" {
   type        = number
   default     = 1024
 }
+
+variable "ciuser" {
+  description = "Override the default cloud-init user for provisioning."
+  type        = string
+}
+
+variable "sshkeys" {
+  description = "Newline delimited list of SSH public keys to add to authorized keys file for the cloud-init user."
+  type        = string
+}
+
+variable "ipconfig" {
+  description = "IP address to assign to the guest. Format: [gw=<GatewayIPv4>] [,gw6=<GatewayIPv6>] [,ip=<IPv4Format/CIDR>] [,ip6=<IPv6Format/CIDR>]."
+  type        = string
+}
+

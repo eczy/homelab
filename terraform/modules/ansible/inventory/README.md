@@ -28,7 +28,6 @@ No modules.
 | <a name="input_group_vars"></a> [group\_vars](#input\_group\_vars) | Group vars. | `map(map(string))` | `{}` | no |
 | <a name="input_groups"></a> [groups](#input\_groups) | Groups of hosts. | `map(list(string))` | n/a | yes |
 | <a name="input_host_vars"></a> [host\_vars](#input\_host\_vars) | Host vars. | `map(map(string))` | `{}` | no |
-| <a name="input_name"></a> [name](#input\_name) | Inventory name. | `string` | n/a | yes |
 
 ## Outputs
 

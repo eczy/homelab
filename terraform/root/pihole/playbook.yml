@@ -1,0 +1,5 @@
+---
+- hosts: pihole
+  roles:
+  - { role: ../../../ansible/roles/bootstrap }
+  - pihole

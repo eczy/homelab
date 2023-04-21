@@ -1,3 +1,5 @@
 ---
 - src: https://github.com/thomas-maurice/ansible-role-gitea
-  name: ansible-role-gitea
+  name: thomas-maurice.gitea
+- name: nginxinc.nginx
+- name: ansible.install-gcloud

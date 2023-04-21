@@ -25,7 +25,7 @@ source "proxmox-iso" "debian-11-base" {
   iso_storage_pool = var.iso_storage_pool
   boot_wait        = "10s"
   http_directory   = "./"
-  boot_command     = ["<esc><wait>auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>"]
+  boot_command     = ["<esc><wait>auto url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg lowmem/low=true<enter>"]
   unmount_iso      = true
 
   cloud_init              = true

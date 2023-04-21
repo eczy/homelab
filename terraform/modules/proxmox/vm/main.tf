@@ -54,4 +54,8 @@ resource "proxmox_vm_qemu" "vm" {
 
   automatic_reboot = true
   onboot           = true
+
+  ciuser    = var.ciuser
+  sshkeys   = var.sshkeys
+  ipconfig0 = var.ipconfig
 }

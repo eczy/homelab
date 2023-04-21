@@ -1,0 +1,15 @@
+---
+- name: Download pi-hole installer
+  ansible.builtin.shell: wget -O /tmp/pihole-basic-install.sh https://install.pi-hole.net
+- name: Ensure /etc/pihole exists
+  file: 
+    path: /etc/pihole
+    state: directory
+- name: Template setupVars.conf to /etc/pihole/setupVars.conf
+  ansible.builtin.template:
+    src: setupVars.conf.j2
+    dest: /etc/pihole/setupVars.conf
+    owner: root
+- name: Run pi-hole installer
+  ansible.builtin.shell: bash /tmp/pihole-basic-install.sh --unattended
+  become: true

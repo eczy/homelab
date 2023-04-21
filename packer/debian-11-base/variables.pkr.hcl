@@ -1,7 +1,7 @@
 variable "iso_url" {
   description = "URL to image used to create base VM"
   type        = string
-  default     = "https://cdimage.debian.org/mirror/cdimage/release/11.5.0/amd64/iso-cd/debian-11.5.0-amd64-netinst.iso"
+  default     = "https://cdimage.debian.org/mirror/cdimage/archive/11.5.0/amd64/iso-cd/debian-11.5.0-amd64-netinst.iso"
 }
 
 variable "iso_checksum" {
@@ -25,7 +25,7 @@ variable "cloud_init_storage_pool" {
 variable "cores" {
   description = "How many CPU cores to give the virtual machine."
   type        = string
-  default     = "2"
+  default     = "1"
 }
 
 variable "sockets" {
@@ -43,7 +43,7 @@ variable "disk_format" {
 variable "disk_size" {
   description = "The size of the disk, including a unit suffix, such as 10G to indicate 10 gigabytes."
   type        = string
-  default     = "32G"
+  default     = "4G"
 }
 
 variable "disk_storage_pool" {
@@ -61,7 +61,7 @@ variable "disk_storage_pool_type" {
 variable "memory" {
   description = "How much memory, in megabytes, to give the virtual machine."
   type        = string
-  default     = "2048"
+  default     = "512"
 }
 
 variable "network_vlan" {
