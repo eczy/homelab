@@ -10,6 +10,7 @@ resource "proxmox_vm_qemu" "vm" {
   clone      = var.clone_vm_name
   full_clone = true
   agent      = var.agent
+  hotplug    = var.hotplug
 
   dynamic "disk" {
     for_each = var.disks

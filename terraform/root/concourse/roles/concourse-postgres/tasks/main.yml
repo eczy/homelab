@@ -1,0 +1,19 @@
+---
+- name: Install postgres
+  become: true
+  ansible.builtin.apt:
+    name: postgres
+    state: present
+- name: Check if postgres is initialized
+  ansible.builtin.state:
+    path: "/var/lib/pgsql/data/pg_hba.conf"
+  register:
+    postgres_data
+- name: Initialize postgres
+  ansible.builtin.shell: "postgresql-setup initdb"
+  when: not postgres_data.stat.exists
+- name: Start and enable postgres
+  ansible.builtin.service:
+    name: postgresql
+    state: started
+    enabled: true

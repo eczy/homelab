@@ -1,0 +1,11 @@
+---
+- name: Download Concourse archive
+  ansible.builtin.get_url:
+    url: "https://github.com/concourse/concourse/releases/download/v{{concourse_version}}/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz"
+    dest: "/tmp/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz"
+- name: Download Concourse checksum
+  ansible.builtin.get_url:
+    url: "https://github.com/concourse/concourse/releases/download/v{{concourse_version}}/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz.sha1"
+    dest: "/tmp/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz.sha1"
+- name: Verify Concourse checksum
+  ansible.builtin.shell: "sha1sum -c /tmp/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz.sha1"

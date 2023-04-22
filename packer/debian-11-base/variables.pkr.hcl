@@ -17,9 +17,9 @@ variable "vm_name" {
 }
 
 variable "cloud_init_storage_pool" {
-  description = "If true, add a Cloud-Init CDROM drive after the virtual machine has been converted to a template. Defaults to false."
+  description = "Name of the Proxmox storage pool to store the Cloud-Init CDROM on. If not given, the storage pool of the boot device will be used."
   type        = string
-  default     = "local"
+  default     = "local-lvm"
 }
 
 variable "cores" {

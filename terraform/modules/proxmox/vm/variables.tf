@@ -98,5 +98,11 @@ variable "sshkeys" {
 variable "ipconfig" {
   description = "IP address to assign to the guest. Format: [gw=<GatewayIPv4>] [,gw6=<GatewayIPv6>] [,ip=<IPv4Format/CIDR>] [,ip6=<IPv6Format/CIDR>]."
   type        = string
+  default     = null
 }
 
+variable "hotplug" {
+  description = "Comma delimited list of hotplug features to enable. Options: network, disk, cpu, memory, usb. Set to 0 to disable hotplug."
+  type        = string
+  default     = "0"
+}
