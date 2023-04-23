@@ -1,0 +1,18 @@
+---
+- name: Install required packages
+  ansible.builtin.apt:
+    pkg:
+    - acl
+    update_cache: yes
+- name: Replace sshd_config
+  ansible.builtin.copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    mode: 0600
+  notify:
+  - restart sshd
+- name: Scramble root password
+  user:
+    name: root
+    password: "{{ lookup('ansible.builtin.password', '/tmp/pass') | password_hash('sha512')}}"
