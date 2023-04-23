@@ -25,8 +25,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_group_vars"></a> [group\_vars](#input\_group\_vars) | Group vars. | `map(map(string))` | `{}` | no |
-| <a name="input_groups"></a> [groups](#input\_groups) | Groups of hosts. | `map(list(string))` | n/a | yes |
+| <a name="input_group_vars"></a> [group\_vars](#input\_group\_vars) | Group vars. Each top level map key is assumed to be the name of a group and will result in a distinct file. | `map(map(string))` | `{}` | no |
+| <a name="input_groups"></a> [groups](#input\_groups) | Groups of hosts. | `any` | n/a | yes |
 | <a name="input_host_vars"></a> [host\_vars](#input\_host\_vars) | Host vars. | `map(map(string))` | `{}` | no |
 
 ## Outputs

@@ -47,7 +47,7 @@ variable "disks" {
     size        = string
     format      = optional(string, "raw")
     cache       = optional(string, "none")
-    backup      = optional(bool, true)
+    backup      = optional(number)
     iothread    = optional(number)
     replicate   = optional(number)
     ssd         = optional(number)
@@ -58,6 +58,7 @@ variable "disks" {
     mbps_wr     = optional(number)
     mbps_wr_max = optional(number)
     media       = optional(string)
+    slot        = optional(number)
   }))
 }
 

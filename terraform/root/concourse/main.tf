@@ -1,6 +1,6 @@
 locals {
   concourse_url   = "concourse.home.lan"
-  worker_pubkey   = file("${var.worker_ssh_key_path}.pub")
+  worker_pubkeys  = [for f in var.worker_ssh_key_paths : file("${f}.pub")]
   web_pubkey      = file("${var.web_ssh_key_path}.pub")
   postgres_pubkey = file("${var.postgres_ssh_key_path}.pub")
 }
@@ -8,7 +8,7 @@ locals {
 module "postgres" {
   source = "../../modules/proxmox/vm"
 
-  vm_name             = "concourse-db"
+  vm_name             = "concourse-postgres"
   proxmox_target_node = "pve"
   clone_vm_name       = "debian-11-base"
   agent               = 1
@@ -52,7 +52,7 @@ module "web" {
     {
       type    = "scsi"
       storage = "local-lvm"
-      size    = "4G"
+      size    = "8G"
     }
   ]
   cores   = 4
@@ -64,7 +64,7 @@ ${local.web_pubkey}
 }
 
 module "worker" {
-  count  = var.num_workers
+  count  = length(var.worker_ssh_key_paths)
   source = "../../modules/proxmox/vm"
 
   vm_name             = "concourse-worker"
@@ -89,27 +89,36 @@ module "worker" {
   memory  = 1024
   ciuser  = "debian"
   sshkeys = <<EOF
-${local.worker_pubkey}
+${local.worker_pubkeys[count.index]}
   EOF
 }
 
 module "inventory" {
   source = "../../modules/ansible/inventory"
 
-  groups = {
-    postgres = [module.postgres.vm.default_ipv4_address]
-    web      = [module.web.vm.default_ipv4_address]
-    worker   = [for vm in module.worker : vm.vm.default_ipv4_address]
-  }
-  group_vars = {
-    postgres = {
-      ansible_ssh_private_key = var.postgres_ssh_key_path
+  groups = merge(
+    {
+      postgres = [module.postgres.vm.default_ipv4_address]
+      web      = [module.web.vm.default_ipv4_address]
+      worker   = [for vm in module.worker : vm.vm.default_ipv4_address]
+    },
+    # need an individual group for each worker since ip isn't known until apply time
+    { for i in range(length(module.worker)) : "worker${i}" => [module.worker[i].vm.default_ipv4_address] }
+  )
+  group_vars = merge(
+    {
+      postgres = {
+        ansible_ssh_private_key_file = var.postgres_ssh_key_path
+      }
+      web = {
+        ansible_ssh_private_key_file = var.web_ssh_key_path
+      }
+      worker = {}
+    },
+    { for i in range(length(module.worker)) : "worker${i}" =>
+      {
+        ansible_ssh_private_key_file = var.worker_ssh_key_paths[i]
+      }
     }
-    web = {
-      ansible_ssh_private_key = var.web_ssh_key_path
-    }
-    worker = {
-      ansible_ssh_private_key = var.worker_ssh_key_path
-    }
-  }
+  )
 }

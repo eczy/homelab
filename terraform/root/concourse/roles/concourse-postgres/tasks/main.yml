@@ -1,8 +1,8 @@
 ---
-- name: Install postgres
+- name: Install Postgresql
   become: true
   ansible.builtin.apt:
-    name: postgres
+    name: postgresql
     state: present
 - name: Check if postgres is initialized
   ansible.builtin.state:
@@ -17,3 +17,7 @@
     name: postgresql
     state: started
     enabled: true
+- name: Create concourse Postgresql user
+  ansible.builtin.shell: "postgres -c \"createuser {{concourse_postgres_user}}\""
+- name: Create atc Postgresql database
+  ansible.builtin.shell: "postgres -c \"createdb --owner={{concourse_postgres_user}} {{concourse_postgres_db}}\""

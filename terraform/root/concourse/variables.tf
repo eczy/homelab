@@ -8,9 +8,9 @@ variable "web_ssh_key_path" {
   type        = string
 }
 
-variable "worker_ssh_key_path" {
+variable "worker_ssh_key_paths" {
   description = "Path to RSA key pair used for Concourse worker servers."
-  type        = string
+  type        = list(string)
 }
 
 variable "session_signing_key_path" {
@@ -23,13 +23,7 @@ variable "tsa_host_key_path" {
   type        = string
 }
 
-variable "worker_key_path" {
-  description = "Path to RSA key pair used by worker node to verify its registration with the web node."
-  type        = string
-}
-
-variable "num_workers" {
-  description = "Number of worker nodes to provision."
-  type        = number
-  default     = 1
+variable "worker_key_paths" {
+  description = "Paths to RSA key pairs used by worker nodes to verify registration with the web node."
+  type        = list(string)
 }

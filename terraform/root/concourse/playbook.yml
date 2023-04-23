@@ -1,4 +1,12 @@
 ---
 - hosts: postgres
   roles:
-  - concourse-postgres
+  - { role: ../../../ansible/roles/bootstrap }
+- hosts: web
+  roles:
+  - { role: ../../../ansible/roles/bootstrap }
+  - concourse-cli
+- hosts: worker
+  roles:
+  - { role: ../../../ansible/roles/bootstrap }
+  - concourse-cli

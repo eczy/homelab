@@ -31,6 +31,7 @@ resource "proxmox_vm_qemu" "vm" {
       mbps_wr     = disk.value["mbps_wr"]
       mbps_wr_max = disk.value["mbps_wr_max"]
       media       = disk.value["media"]
+      slot        = disk.value["slot"]
     }
   }
 
