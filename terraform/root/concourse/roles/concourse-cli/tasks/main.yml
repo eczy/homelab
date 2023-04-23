@@ -1,4 +1,13 @@
 ---
+- name: Ensure concourse group exists
+  ansible.builtin.group:
+    name: concourse
+    state: present
+- name: Ensure concourse user exists
+  ansible.builtin.user:
+    name: concourse
+    state: present
+    groups: concourse    
 - name: Download Concourse archive
   ansible.builtin.get_url:
     url: "https://github.com/concourse/concourse/releases/download/v{{concourse_version}}/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz"

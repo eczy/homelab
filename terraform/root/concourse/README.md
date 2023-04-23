@@ -1,3 +1,5 @@
+
+Note: Concourse Postgres database currently runs on the web node. If scaling, this should be broken out into a dedicated VM.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -16,7 +18,6 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_inventory"></a> [inventory](#module\_inventory) | ../../modules/ansible/inventory | n/a |
-| <a name="module_postgres"></a> [postgres](#module\_postgres) | ../../modules/proxmox/vm | n/a |
 | <a name="module_web"></a> [web](#module\_web) | ../../modules/proxmox/vm | n/a |
 | <a name="module_worker"></a> [worker](#module\_worker) | ../../modules/proxmox/vm | n/a |
 

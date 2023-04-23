@@ -5,34 +5,34 @@ locals {
   postgres_pubkey = file("${var.postgres_ssh_key_path}.pub")
 }
 
-module "postgres" {
-  source = "../../modules/proxmox/vm"
+# module "postgres" {
+#   source = "../../modules/proxmox/vm"
 
-  vm_name             = "concourse-postgres"
-  proxmox_target_node = "pve"
-  clone_vm_name       = "debian-11-base"
-  agent               = 1
-  networks = [
-    {
-      model    = "virtio"
-      bridge   = "vmbr0"
-      firewall = true
-    }
-  ]
-  disks = [
-    {
-      type    = "scsi"
-      storage = "local-lvm"
-      size    = "128G"
-    }
-  ]
-  cores   = 2
-  memory  = 1024
-  ciuser  = "debian"
-  sshkeys = <<EOF
-${local.postgres_pubkey}
-  EOF
-}
+#   vm_name             = "concourse-postgres"
+#   proxmox_target_node = "pve"
+#   clone_vm_name       = "debian-11-base"
+#   agent               = 1
+#   networks = [
+#     {
+#       model    = "virtio"
+#       bridge   = "vmbr0"
+#       firewall = true
+#     }
+#   ]
+#   disks = [
+#     {
+#       type    = "scsi"
+#       storage = "local-lvm"
+#       size    = "128G"
+#     }
+#   ]
+#   cores   = 2
+#   memory  = 1024
+#   ciuser  = "debian"
+#   sshkeys = <<EOF
+# ${local.postgres_pubkey}
+#   EOF
+# }
 
 module "web" {
   source = "../../modules/proxmox/vm"
@@ -98,20 +98,23 @@ module "inventory" {
 
   groups = merge(
     {
-      postgres = [module.postgres.vm.default_ipv4_address]
-      web      = [module.web.vm.default_ipv4_address]
-      worker   = [for vm in module.worker : vm.vm.default_ipv4_address]
+      # postgres = [module.postgres.vm.default_ipv4_address]
+      web    = [module.web.vm.default_ipv4_address]
+      worker = [for vm in module.worker : vm.vm.default_ipv4_address]
     },
     # need an individual group for each worker since ip isn't known until apply time
     { for i in range(length(module.worker)) : "worker${i}" => [module.worker[i].vm.default_ipv4_address] }
   )
   group_vars = merge(
     {
-      postgres = {
-        ansible_ssh_private_key_file = var.postgres_ssh_key_path
-      }
+      # postgres = {
+      #   ansible_ssh_private_key_file = var.postgres_ssh_key_path
+      # }
       web = {
-        ansible_ssh_private_key_file = var.web_ssh_key_path
+        ansible_ssh_private_key_file       = var.web_ssh_key_path
+        concourse_session_signing_key_file = var.session_signing_key_path
+        concourse_tsa_host_key_file        = var.tsa_host_key_path
+        concourse_tsa_authorized_key_files = var.worker_key_paths
       }
       worker = {}
     },
