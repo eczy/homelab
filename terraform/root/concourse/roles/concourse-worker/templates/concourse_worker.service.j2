@@ -1,0 +1,12 @@
+[Unit]
+Description=Concourse CI Worker
+
+[Service]
+EnvironmentFile=/etc/concourse/worker_env
+ExecStart=/usr/local/concourse/bin/concourse worker
+User=root
+Group=root
+Type=simple
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Concourse CI Web
+After=postgres.service
+
+[Service]
+EnvironmentFile=/etc/concourse/web_env
+ExecStart=/usr/local/concourse/bin/concourse web
+User=concourse
+Group=concourse
+Type=simple
+
+[Install]
+WantedBy=default.target

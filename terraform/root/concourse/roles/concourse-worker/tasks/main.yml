@@ -1,0 +1,39 @@
+---
+- name: Ensure /etc/concourse exists
+  ansible.builtin.file:
+    path: /etc/concourse
+    state: directory
+- name: Ensure Concourse work dir exists
+  ansible.builtin.file:
+    path: /opt/concourse/worker
+    state: directory
+- name: Copy tsa public key
+  ansible.builtin.copy:
+    src: "{{concourse_tsa_public_key_file}}"
+    dest: /etc/concourse/tsa_host_key.pub
+- name: Copy tsa public key
+  ansible.builtin.copy:
+    src: "{{concourse_tsa_worker_private_key_file}}"
+    dest: /etc/concourse/worker_key
+- name: Ensure concourse worker service env file exists
+  ansible.builtin.template:
+    src: env.j2
+    dest: /etc/concourse/worker_env
+    owner: concourse
+    group: concourse
+  vars:
+    env_vars:
+      CONCOURSE_WORK_DIR: /opt/concourse/worker
+      CONCOURSE_TSA_HOST: "{{concourse_tsa_host}}"
+      CONCOURSE_TSA_PUBLIC_KEY: /etc/concourse/tsa_host_key.pub
+      CONCOURSE_TSA_WORKER_PRIVATE_KEY: /etc/concourse/worker_key
+- name: Ensure concourse worker service exists
+  ansible.builtin.template:
+    src: concourse_worker.service.j2
+    dest: /etc/systemd/system/concourse_worker.service
+- name: Ensure concourse worker service is enabled and started
+  ansible.builtin.service:
+    name: concourse_worker
+    state: started
+    enabled: yes
+    daemon_reload: true

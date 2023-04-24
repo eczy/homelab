@@ -1,0 +1,66 @@
+---
+- name: Ensure /etc/concourse exists
+  ansible.builtin.file:
+    path: /etc/concourse
+    state: directory
+- name: Copy session signing key
+  ansible.builtin.copy:
+    src: "{{concourse_session_signing_key_file}}"
+    dest: /etc/concourse/session_signing_key
+- name: Copy tsa host key
+  ansible.builtin.copy:
+    src: "{{concourse_tsa_host_key_file}}"
+    dest: /etc/concourse/tsa_host_key
+- name: Copy tsa authorized keys
+  ansible.builtin.copy:
+    dest: /etc/concourse/authorized_worker_keys
+    content: "{{concourse_tsa_authorized_keys}}"
+# TODO: the below can be abstracted into a role that creates an NGINX site
+# ===
+# TODO ensure NGINX is present and running
+- name: Ensure concourse server exists in NGINX
+  ansible.builtin.template:
+    src: concourse-nginx-server.j2
+    dest: "/etc/nginx/sites-available/{{concourse_external_url}}"
+    group: www-data
+  vars:
+    concourse_external_host: "{{concourse_external_url}}"
+    concourse_internal_host: 127.0.0.1
+    concourse_http_port: 8080
+- name: Ensure concourse server is symlinked to sites-available
+  ansible.builtin.file:
+    src: "/etc/nginx/sites-available/{{concourse_external_url}}"
+    dest: "/etc/nginx/sites-enabled/{{concourse_external_url}}"
+    state: link
+    group: www-data
+# ===
+- name: Restart NGINX
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+- name: Ensure concourse web service env file exists
+  ansible.builtin.template:
+    src: env.j2
+    dest: /etc/concourse/web_env
+    owner: concourse
+    group: concourse
+  vars:
+    env_vars:
+      CONCOURSE_ADD_LOCAL_USER: concourse:concourse
+      CONCOURSE_MAIN_TEAM_LOCAL_USER: concourse
+      CONCOURSE_SESSION_SIGNING_KEY: /etc/concourse/session_signing_key
+      CONCOURSE_TSA_HOST_KEY: /etc/concourse/tsa_host_key
+      CONCOURSE_TSA_AUTHORIZED_KEYS: /etc/concourse/authorized_worker_keys
+      CONCOURSE_POSTGRES_USER: concourse
+      CONCOURSE_POSTGRES_SOCKET: /var/run/postgresql
+      CONCOURSE_EXTERNAL_URL: "{{concourse_external_url}}"
+- name: Ensure concourse web service exists
+  ansible.builtin.template:
+    src: concourse_web.service.j2
+    dest: /etc/systemd/system/concourse_web.service
+- name: Ensure concourse web service is enabled and started
+  ansible.builtin.service:
+    name: concourse_web
+    state: started
+    enabled: yes
+    daemon_reload: true

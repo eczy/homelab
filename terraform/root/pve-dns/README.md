@@ -1,5 +1,7 @@
 # pve-dns
-This simple root module is required since we run pi-hole in a Proxmox VM. This simply assigns a CNAME for the Proxmox IP in the pi-hole DNS.<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+This simple root module is required since we run pi-hole in a Proxmox VM. This simply assigns a CNAME for the Proxmox IP in the pi-hole DNS.
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |

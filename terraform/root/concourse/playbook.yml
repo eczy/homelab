@@ -6,11 +6,12 @@
 - hosts: web
   roles:
   - { role: ../../../ansible/roles/bootstrap }
+  - { role: ../../../ansible/roles/nginx-server }
   - concourse-cli
   - concourse-postgres
-  # - concourse-web
+  - concourse-web
 - hosts: worker
   roles:
   - { role: ../../../ansible/roles/bootstrap }
   - concourse-cli
-  # - concourse-worker
+  - concourse-worker

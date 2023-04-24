@@ -11,7 +11,9 @@ Note: Concourse Postgres database currently runs on the web node. If scaling, th
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_pihole"></a> [pihole](#provider\_pihole) | 0.0.12 |
 
 ## Modules
 
@@ -23,7 +25,9 @@ No providers.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [pihole_dns_record.gitea_record](https://registry.terraform.io/providers/ryanwholey/pihole/latest/docs/resources/dns_record) | resource |
 
 ## Inputs
 
