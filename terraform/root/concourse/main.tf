@@ -99,17 +99,31 @@ ${local.worker_pubkeys[count.index]}
   EOF
 }
 
+# TODO: can probably refactor this module to make the inputs a lot easier
 module "inventory" {
   source = "../../modules/ansible/inventory"
 
+  # TODO: a lot of this can be moved to locals to clean it up
   groups = merge(
     {
       # postgres = [module.postgres.vm.default_ipv4_address]
-      web    = [module.web.vm.default_ipv4_address]
-      worker = [for vm in module.worker : vm.vm.default_ipv4_address]
+      web = {
+        hosts = {
+          (module.web.vm.default_ipv4_address) = null
+        }
+      }
+      worker = {
+        children = { for i in range(length(module.worker)) : "worker${i}" => null }
+      }
     },
     # need an individual group for each worker since ip isn't known until apply time
-    { for i in range(length(module.worker)) : "worker${i}" => [module.worker[i].vm.default_ipv4_address] }
+    { for i in range(length(module.worker)) :
+      "worker${i}" => {
+        hosts = {
+          (module.worker[i].vm.default_ipv4_address) = null
+        }
+      }
+    }
   )
   group_vars = merge(
     {

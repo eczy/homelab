@@ -1,15 +1,15 @@
-locals {
-  groups = { for name, hosts in var.groups : name =>
-    {
-      hosts : { for host in hosts : "${host}" => "" }
-    }
-  }
-}
+# locals {
+#   groups = { for name, hosts in var.groups : name =>
+#     {
+#       hosts : { for host in hosts : "${host}" => "" }
+#     }
+#   }
+# }
 
 resource "local_sensitive_file" "inventory" {
   content  = <<EOF
 ---
-${yamlencode(local.groups)}
+${yamlencode(var.groups)}
 EOF
   filename = "${path.root}/inventory/hosts.yml"
 }
