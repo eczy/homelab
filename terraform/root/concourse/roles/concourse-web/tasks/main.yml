@@ -16,6 +16,7 @@
     dest: /etc/concourse/authorized_worker_keys
     content: "{{concourse_tsa_authorized_keys}}"
 # TODO: the below can be abstracted into a role that creates an NGINX site
+# TODO: don't use sites-available convention - use conf.d instead
 # ===
 # TODO ensure NGINX is present and running
 - name: Ensure concourse server exists in NGINX
@@ -24,7 +25,6 @@
     dest: "/etc/nginx/sites-available/{{concourse_external_host}}"
     group: www-data
   vars:
-    # concourse_external_host: "{{concourse_external_host}}"
     concourse_internal_host: 127.0.0.1
     concourse_http_port: 8080
 - name: Ensure concourse server is symlinked to sites-available

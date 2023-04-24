@@ -1,0 +1,17 @@
+---
+# TODO: the below can be abstracted into a role that creates an NGINX site
+# ===
+# TODO ensure NGINX is present and running
+- name: Ensure gitea server exists in NGINX
+  ansible.builtin.template:
+    src: gitea-nginx-server.j2
+    dest: "/etc/nginx/conf.d/{{gitea_http_domain}}.conf"
+    group: www-data
+  vars:
+    gitea_domain: "{{gitea_http_domain}}"
+    gitea_internal_host: 127.0.0.1
+# ===
+- name: Restart NGINX
+  ansible.builtin.service:
+    name: nginx
+    state: restarted

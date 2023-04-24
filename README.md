@@ -20,9 +20,8 @@ TODO:
 - pihole dns terraform module
 - generate bootstrap secrets
 - change argocd app-of-apps to terraform managed so that terraform can handle secrets
-- set static ip for pihole and vault
 - add cloud-init config via proxmox instead of packer to simplify base images
 - HA vault
-- Refactor shell provisioners to use Ansible
 - move cloudinit stuff into common ansible role
 - edit Gitea playbook to make config read only to gitea user
+- replace postgres ansible logic with existing gerlingguy role

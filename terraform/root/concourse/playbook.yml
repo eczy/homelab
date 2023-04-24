@@ -6,7 +6,7 @@
 - hosts: web
   roles:
   - { role: ../../../ansible/roles/bootstrap }
-  - { role: ../../../ansible/roles/nginx-server }
+  - { role: ../../../ansible/community-roles/nginxinc.nginx }
   - concourse-cli
   - concourse-postgres
   - concourse-web
