@@ -12,11 +12,6 @@
   ansible.builtin.get_url:
     url: "https://github.com/concourse/concourse/releases/download/v{{concourse_version}}/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz"
     dest: "/tmp/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz"
-- name: Download Concourse checksum
-  ansible.builtin.get_url:
-    url: "https://github.com/concourse/concourse/releases/download/v{{concourse_version}}/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz.sha1"
-    dest: "/tmp/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz.sha1"
-- name: Verify Concourse checksum
-  ansible.builtin.shell: "cd /tmp && sha1sum -c concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz.sha1"
+    checksum: "sha1:https://github.com/concourse/concourse/releases/download/v{{concourse_version}}/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz.sha1"
 - name: Unarchive Concourse
   ansible.builtin.shell: "tar -zxf /tmp/concourse-{{concourse_version}}-{{concourse_os}}-{{concourse_arch}}.tgz -C /usr/local"

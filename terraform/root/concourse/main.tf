@@ -116,12 +116,16 @@ module "inventory" {
       # postgres = {
       #   ansible_ssh_private_key_file = var.postgres_ssh_key_path
       # }
+      all = {
+        concourse_version = "7.8.3"
+      }
       web = {
         ansible_ssh_private_key_file       = var.web_ssh_key_path
         concourse_session_signing_key_file = var.session_signing_key_path
         concourse_tsa_host_key_file        = var.tsa_host_key_path
         concourse_tsa_authorized_keys      = local.tsa_authorized_pubkeys
-        concourse_external_url             = local.concourse_url
+        concourse_external_host            = local.concourse_url
+        concourse_external_url             = "http://${local.concourse_url}"
       }
       worker = {
         concourse_tsa_public_key_file = "${var.tsa_host_key_path}.pub"

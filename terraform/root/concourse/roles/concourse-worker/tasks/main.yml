@@ -15,6 +15,12 @@
   ansible.builtin.copy:
     src: "{{concourse_tsa_worker_private_key_file}}"
     dest: /etc/concourse/worker_key
+- name: Ensure containerd is installed
+  ansible.builtin.apt:
+    pkg:
+    - containerd
+    - iptables
+    update_cache: true
 - name: Ensure concourse worker service env file exists
   ansible.builtin.template:
     src: env.j2
@@ -27,6 +33,7 @@
       CONCOURSE_TSA_HOST: "{{concourse_tsa_host}}"
       CONCOURSE_TSA_PUBLIC_KEY: /etc/concourse/tsa_host_key.pub
       CONCOURSE_TSA_WORKER_PRIVATE_KEY: /etc/concourse/worker_key
+      CONCOURSE_RUNTIME: containerd
 - name: Ensure concourse worker service exists
   ansible.builtin.template:
     src: concourse_worker.service.j2

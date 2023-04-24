@@ -21,16 +21,16 @@
 - name: Ensure concourse server exists in NGINX
   ansible.builtin.template:
     src: concourse-nginx-server.j2
-    dest: "/etc/nginx/sites-available/{{concourse_external_url}}"
+    dest: "/etc/nginx/sites-available/{{concourse_external_host}}"
     group: www-data
   vars:
-    concourse_external_host: "{{concourse_external_url}}"
+    # concourse_external_host: "{{concourse_external_host}}"
     concourse_internal_host: 127.0.0.1
     concourse_http_port: 8080
 - name: Ensure concourse server is symlinked to sites-available
   ansible.builtin.file:
-    src: "/etc/nginx/sites-available/{{concourse_external_url}}"
-    dest: "/etc/nginx/sites-enabled/{{concourse_external_url}}"
+    src: "/etc/nginx/sites-available/{{concourse_external_host}}"
+    dest: "/etc/nginx/sites-enabled/{{concourse_external_host}}"
     state: link
     group: www-data
 # ===
