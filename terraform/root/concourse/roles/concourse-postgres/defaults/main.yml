@@ -1,3 +1,0 @@
----
-concourse_postgres_user: concourse
-concourse_postgres_db: atc

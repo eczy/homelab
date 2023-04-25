@@ -11,35 +11,6 @@ resource "pihole_dns_record" "gitea_record" {
   ip     = module.web.vm.default_ipv4_address
 }
 
-# module "postgres" {
-#   source = "../../modules/proxmox/vm"
-
-#   vm_name             = "concourse-postgres"
-#   proxmox_target_node = "pve"
-#   clone_vm_name       = "debian-11-base"
-#   agent               = 1
-#   networks = [
-#     {
-#       model    = "virtio"
-#       bridge   = "vmbr0"
-#       firewall = true
-#     }
-#   ]
-#   disks = [
-#     {
-#       type    = "scsi"
-#       storage = "local-lvm"
-#       size    = "128G"
-#     }
-#   ]
-#   cores   = 2
-#   memory  = 1024
-#   ciuser  = "debian"
-#   sshkeys = <<EOF
-# ${local.postgres_pubkey}
-#   EOF
-# }
-
 module "web" {
   source = "../../modules/proxmox/vm"
 
@@ -106,7 +77,6 @@ module "inventory" {
   # TODO: a lot of this can be moved to locals to clean it up
   groups = merge(
     {
-      # postgres = [module.postgres.vm.default_ipv4_address]
       web = {
         hosts = {
           (module.web.vm.default_ipv4_address) = null

@@ -15,29 +15,17 @@
   ansible.builtin.copy:
     dest: /etc/concourse/authorized_worker_keys
     content: "{{concourse_tsa_authorized_keys}}"
-# TODO: the below can be abstracted into a role that creates an NGINX site
-# TODO: don't use sites-available convention - use conf.d instead
-# ===
-# TODO ensure NGINX is present and running
-- name: Ensure concourse server exists in NGINX
+# TODO: assert nginx is installed and running
+- name: Ensure server exists in NGINX
   ansible.builtin.template:
     src: concourse-nginx-server.j2
-    dest: "/etc/nginx/sites-available/{{concourse_external_host}}"
+    dest: "/etc/nginx/conf.d/{{concourse_external_host}}.conf"
     group: www-data
   vars:
     concourse_internal_host: 127.0.0.1
     concourse_http_port: 8080
-- name: Ensure concourse server is symlinked to sites-available
-  ansible.builtin.file:
-    src: "/etc/nginx/sites-available/{{concourse_external_host}}"
-    dest: "/etc/nginx/sites-enabled/{{concourse_external_host}}"
-    state: link
-    group: www-data
-# ===
-- name: Restart NGINX
-  ansible.builtin.service:
-    name: nginx
-    state: restarted
+  notify:
+  - Restart NGINX
 - name: Ensure concourse web service env file exists
   ansible.builtin.template:
     src: env.j2

@@ -3,17 +3,25 @@
   roles:
   - { role: ../../../ansible/roles/bootstrap }
   - { role: ../../../ansible/community-roles/nginxinc.nginx }
-  - gitea-postgres
+  - role: ../../../ansible/community-roles/geerlingguy.postgresql
+    vars:
+      postgresql_restarted_state: restarted
+      postgresql_service_state: started
+      postgresql_service_enabled: true
+      postgresql_users:
+        - name: gitea
+      postgresql_databases:
+        - name: gitea
+          owner: gitea
+    become: true
   - gitea
-- hosts: gitea
-  vars:
-    gitea_theme_default: arc-green
-    gitea_db_type: postgres
-    gitea_db_host: /run/postgresql/
-    gitea_db_user: gitea
-    gitea_db_name: gitea
-    gitea_ssh_port: 22
-    gitea_start_ssh: false
-    gitea_shell: /usr/bin/bash
-  roles:
-  - { role: ../../../ansible/community-roles/thomas-maurice.gitea}
+  - role: ../../../ansible/community-roles/thomas-maurice.gitea
+    vars:
+      gitea_theme_default: arc-green
+      gitea_db_type: postgres
+      gitea_db_host: /run/postgresql/
+      gitea_db_user: gitea
+      gitea_db_name: gitea
+      gitea_ssh_port: 22
+      gitea_start_ssh: false
+      gitea_shell: /usr/bin/bash

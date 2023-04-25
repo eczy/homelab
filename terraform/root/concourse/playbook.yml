@@ -1,14 +1,20 @@
 ---
-# - hosts: postgres
-#   roles:
-#   - { role: ../../../ansible/roles/bootstrap }
-#   - concourse-postgres
 - hosts: web
   roles:
   - { role: ../../../ansible/roles/bootstrap }
   - { role: ../../../ansible/community-roles/nginxinc.nginx }
+  - role: ../../../ansible/community-roles/geerlingguy.postgresql
+    vars:
+      postgresql_restarted_state: restarted
+      postgresql_service_state: started
+      postgresql_service_enabled: true
+      postgresql_users:
+        - name: concourse
+      postgresql_databases:
+        - name: atc
+          owner: concourse
+    become: true
   - concourse-cli
-  - concourse-postgres
   - concourse-web
 - hosts: worker
   roles:
