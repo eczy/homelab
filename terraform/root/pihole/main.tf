@@ -35,15 +35,20 @@ module "vm" {
   ipconfig = "ip=${local.pihole_static_ip},gw=${local.pihole_gateway}"
 }
 
+
 module "inventory" {
   source = "../../modules/ansible/inventory"
 
   groups = {
-    pihole = [module.vm.vm.default_ipv4_address]
-  }
-  group_vars = {
     pihole = {
-      pihole_static_ip = local.pihole_static_ip
+      hosts = {
+        (module.vm.vm.default_ipv4_address) = null
+      }
+    }
+    group_vars = {
+      pihole = {
+        pihole_static_ip = local.pihole_static_ip
+      }
     }
   }
 }

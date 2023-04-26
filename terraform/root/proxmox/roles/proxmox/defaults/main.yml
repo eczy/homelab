@@ -1,0 +1,10 @@
+---
+vzdump_hook_script_path: /usr/local/bin/vzdump-hook
+vzdump_jobs:
+  - name: backup-00
+    schedule: "3:00"
+    enabled: 1
+    mode: snapshot
+    prune_backups: keep-daily=1,keep-weekly=1,keep-monthly=1
+    storage: local
+job_end_cmd: ":"

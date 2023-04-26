@@ -6,5 +6,9 @@ terraform {
       source  = "ryanwholey/pihole"
       version = ">=0"
     }
+    google = {
+      source  = "hashicorp/google"
+      version = ">=0"
+    }
   }
 }

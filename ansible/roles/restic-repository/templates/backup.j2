@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+export RESTIC_REPOSITORY={{restic_repository}}
+export RESTIC_PASSWORD_FILE=/etc/restic/repository_password
+export GOOGLE_PROJECT_ID={{restic_google_project_id}}
+export GOOGLE_APPLICATION_CREDENTIALS=/etc/restic/google_application_credentials.json
+
+restic backup {{restic_backup_dir}}

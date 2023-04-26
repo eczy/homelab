@@ -1,0 +1,18 @@
+---
+- name: Copy backup script
+  ansible.builtin.template:
+    src: vzdump-hook.j2
+    dest: "{{vzdump_hook_script_path}}"
+    mode: 0744
+    owner: root
+- name: Copy /etc/vzdump.conf
+  ansible.builtin.template:
+    src: vzdump.conf.j2
+    dest: /etc/vzdump.conf
+    owner: root
+# TODO: parameterize the template better
+- name: Copy vzdump jobs
+  ansible.builtin.template:
+    src: jobs.cfg.j2
+    dest: /etc/pve/jobs.cfg
+

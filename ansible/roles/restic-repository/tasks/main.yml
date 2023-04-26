@@ -1,0 +1,44 @@
+---
+- name: Ensure /etc/restic directory exists
+  ansible.builtin.file:
+    path: /etc/restic
+    state: directory
+# TODO: better password/cred management than a root-only file
+- name: Copy password file
+  ansible.builtin.copy:
+    src: "{{restic_repository_password_file}}"
+    dest: /etc/restic/repository_password
+    owner: root
+    group: root
+    mode: '0600'
+- name: Write GCP application credentials
+  ansible.builtin.copy:
+    content: "{{restic_google_application_credentials | b64decode}}"
+    dest: /etc/restic/google_application_credentials.json
+    owner: root
+    group: root
+    mode: '0600'
+- name: Check if repository already initialized
+  ansible.builtin.command: restic snapshots
+  environment:
+    RESTIC_REPOSITORY: "{{restic_repository}}"
+    RESTIC_PASSWORD_FILE: /etc/restic/repository_password
+    GOOGLE_PROJECT_ID: "{{restic_google_project_id}}"
+    GOOGLE_APPLICATION_CREDENTIALS: "/etc/restic/google_application_credentials.json"
+  register: repo_snap_result
+  ignore_errors: True
+- name: Initialize repository if necessary
+  when: repo_snap_result.rc != 0
+  ansible.builtin.command: restic init
+  environment:
+    RESTIC_REPOSITORY: "{{restic_repository}}"
+    RESTIC_PASSWORD_FILE: /etc/restic/repository_password
+    GOOGLE_PROJECT_ID: "{{restic_google_project_id}}"
+    GOOGLE_APPLICATION_CREDENTIALS: "/etc/restic/google_application_credentials.json"
+- name: Produce backup script
+  ansible.builtin.template:
+    src: backup.j2
+    dest: "{{restic_backup_script_path}}"
+    owner: root
+    group: root
+    mode: '0700'

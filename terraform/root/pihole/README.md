@@ -4,7 +4,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >=0 |
+| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | 2.9.11 |
 
 ## Providers
 

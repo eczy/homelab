@@ -3,13 +3,12 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = ">=0"
+      version = "2.9.11"
     }
   }
 }
 
 provider "proxmox" {
   pm_timeout      = 6000
-  pm_parallel     = 1
   pm_tls_insecure = true
 }

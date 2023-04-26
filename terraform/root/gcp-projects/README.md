@@ -20,7 +20,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [google_project.gitea_backup](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project) | resource |
+| [google_project.proxmox_backup](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project) | resource |
 | [google_billing_account.acct](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/billing_account) | data source |
 
 ## Inputs

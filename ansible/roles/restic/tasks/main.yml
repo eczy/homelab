@@ -1,0 +1,21 @@
+---
+- name: Ensure bzip2 is installed
+  ansible.builtin.apt:
+    pkg:
+      - bzip2
+- name: Download restic archive
+  ansible.builtin.get_url:
+    url: "https://github.com/restic/restic/releases/download/v{{restic_version}}/restic_{{restic_version}}_{{restic_os}}_{{restic_arch}}.bz2"
+    dest: "/tmp/restic_{{restic_version}}_{{restic_os}}_{{restic_arch}}.bz2"
+    checksum: "sha256:https://github.com/restic/restic/releases/download/v{{restic_version}}/SHA256SUMS"
+- name: Unarchive restic
+  ansible.builtin.command: "bzip2 -d /tmp/restic_{{restic_version}}_{{restic_os}}_{{restic_arch}}.bz2"
+- name: Move restic to /usr/local/bin/
+  ansible.builtin.command: "mv /tmp/restic_{{restic_version}}_{{restic_os}}_{{restic_arch}} /usr/local/bin/restic"
+# TODO: dedicated nonroot user
+- name: Ensure restic is executable
+  ansible.builtin.file:
+    path: /usr/local/bin/restic
+    owner: root
+    mode: '0744'
+  

@@ -3,8 +3,8 @@ data "google_billing_account" "acct" {
   open         = true
 }
 
-resource "google_project" "gitea_backup" {
-  name            = "Gitea Backup"
-  project_id      = "eczy-gitea-backup"
+resource "google_project" "proxmox_backup" {
+  name            = "Proxmox Backup"
+  project_id      = "eczy-proxmox-backup"
   billing_account = data.google_billing_account.acct.id
 }

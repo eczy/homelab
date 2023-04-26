@@ -1,0 +1,2 @@
+---
+restic_backup_script_path: /etc/restic/backup

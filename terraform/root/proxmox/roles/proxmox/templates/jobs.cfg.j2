@@ -1,0 +1,12 @@
+{% for job in vzdump_jobs %}
+vzdump: {{job.name}}
+        schedule {{job.schedule}}
+        all 1
+        compress zstd
+        enabled {{job.enabled}}
+        mailnotification always
+        mode {{job.mode}}
+        notes-template {{ '{{guestname}}' }}
+        prune-backups {{job.prune_backups}}
+        storage {{job.storage}}
+{% endfor %}
