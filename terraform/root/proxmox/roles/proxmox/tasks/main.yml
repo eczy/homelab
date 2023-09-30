@@ -1,18 +1,16 @@
 ---
-- name: Copy backup script
-  ansible.builtin.template:
-    src: vzdump-hook.j2
-    dest: "{{vzdump_hook_script_path}}"
-    mode: 0744
-    owner: root
-- name: Copy /etc/vzdump.conf
-  ansible.builtin.template:
-    src: vzdump.conf.j2
-    dest: /etc/vzdump.conf
-    owner: root
+- name: Check if backup server storage already exists
+  ansible.builtin.shell:
+    cmd: "pvesm status --storage {{pbs_storage_id}}"
+  register: pbs_storage_status
+- name: Add proxmox backup server storage
+  ansible.builtin.shell:
+    cmd: "pvesm add pbs {{pbs_storage_id}} --server {{pbs_server}} --username {{pbs_username}} --datastore {{pbs_datastore}} --fingerprint '{{pbs_fingerprint}}' --password '{{pbs_password}}'"
+  when: pbs_storage_status.rc != 0
+  no_log: True
+
 # TODO: parameterize the template better
 - name: Copy vzdump jobs
   ansible.builtin.template:
     src: jobs.cfg.j2
     dest: /etc/pve/jobs.cfg
-

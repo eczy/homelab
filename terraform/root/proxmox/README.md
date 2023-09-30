@@ -14,7 +14,6 @@ Since pi-hole runs in a VM within Proxmox, this must be run after the pi-hole ro
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 4.63.0 |
 | <a name="provider_pihole"></a> [pihole](#provider\_pihole) | 0.0.12 |
 
 ## Modules
@@ -27,12 +26,7 @@ Since pi-hole runs in a VM within Proxmox, this must be run after the pi-hole ro
 
 | Name | Type |
 |------|------|
-| [google_service_account.restic](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
-| [google_service_account_key.restic](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_key) | resource |
-| [google_storage_bucket.proxmox_backup](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket) | resource |
-| [google_storage_bucket_iam_member.proxmox_backup_object_admin](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_iam_member) | resource |
 | [pihole_dns_record.gitea_record](https://registry.terraform.io/providers/ryanwholey/pihole/latest/docs/resources/dns_record) | resource |
-| [google_project.backup](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project) | data source |
 
 ## Inputs
 

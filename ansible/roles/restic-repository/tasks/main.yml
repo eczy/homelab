@@ -6,7 +6,7 @@
 # TODO: better password/cred management than a root-only file
 - name: Copy password file
   ansible.builtin.copy:
-    src: "{{restic_repository_password_file}}"
+    src: "{{restic_repository_password}}"
     dest: /etc/restic/repository_password
     owner: root
     group: root
@@ -21,20 +21,21 @@
 - name: Check if repository already initialized
   ansible.builtin.command: restic snapshots
   environment:
-    RESTIC_REPOSITORY: "{{restic_repository}}"
+    RESTIC_REPOSITORY: "{{restic_repository_path}}"
     RESTIC_PASSWORD_FILE: /etc/restic/repository_password
-    GOOGLE_PROJECT_ID: "{{restic_google_project_id}}"
-    GOOGLE_APPLICATION_CREDENTIALS: "/etc/restic/google_application_credentials.json"
+    B2_ACCOUNT_ID: "{{restic_b2_account_id}}"
+    B2_ACCOUNT_KEY: "{{restic_b2_account_key}}"
   register: repo_snap_result
   ignore_errors: True
 - name: Initialize repository if necessary
   when: repo_snap_result.rc != 0
   ansible.builtin.command: restic init
   environment:
-    RESTIC_REPOSITORY: "{{restic_repository}}"
+    RESTIC_REPOSITORY: "{{restic_repository_path}}"
     RESTIC_PASSWORD_FILE: /etc/restic/repository_password
-    GOOGLE_PROJECT_ID: "{{restic_google_project_id}}"
-    GOOGLE_APPLICATION_CREDENTIALS: "/etc/restic/google_application_credentials.json"
+    RESTIC_COMPRESSION: "{{restic_compression}}"
+    B2_ACCOUNT_ID: "{{restic_b2_account_id}}"
+    B2_ACCOUNT_KEY: "{{restic_b2_account_key}}"
 - name: Produce backup script
   ansible.builtin.template:
     src: backup.j2

@@ -2,7 +2,8 @@
 
 export RESTIC_REPOSITORY={{restic_repository}}
 export RESTIC_PASSWORD_FILE=/etc/restic/repository_password
-export GOOGLE_PROJECT_ID={{restic_google_project_id}}
-export GOOGLE_APPLICATION_CREDENTIALS=/etc/restic/google_application_credentials.json
+export RESTIC_COMPRESSION={{restic_compression}}
+export B2_ACCOUNT_ID={{restic_b2_account_id}}
+export B2_ACCOUNT_KEY={{restic_b2_account_key}}
 
 restic backup {{restic_backup_dir}}

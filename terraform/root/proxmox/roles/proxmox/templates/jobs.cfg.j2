@@ -1,7 +1,10 @@
 {% for job in vzdump_jobs %}
 vzdump: {{job.name}}
+        {% if job.vmid is not none %}
+        vmid: {{job.vmid}}
+        {% endif %}
         schedule {{job.schedule}}
-        all 1
+        all {{job.all}}
         compress zstd
         enabled {{job.enabled}}
         mailnotification always

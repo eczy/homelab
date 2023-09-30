@@ -1,8 +1,15 @@
 ---
 - hosts: proxmox
   roles:
-  - role: ../../../ansible/roles/restic
+  - { role: ../../../ansible/roles/restic }
+  - { role: ../../../ansible/roles/proxmox-backup-server }
+  - proxmox-backup-server
+  - proxmox
   - role: ../../../ansible/roles/restic-repository
-  - role: proxmox
-    # vars:
-      # job_end_cmd: "source /etc/restic/backup"
+    restic_repository_path: /backup/store0
+    restic_repository_password: password
+- hosts: proxmox
+  tasks:
+  - name: PBS backup to B2 cron job
+    ansible.builtin.cron:
+    

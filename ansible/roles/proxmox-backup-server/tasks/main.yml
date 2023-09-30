@@ -1,0 +1,7 @@
+- name: Add proxmox backup server repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://download.proxmox.com/debian/pbs bullseye pbs-no-subscription
+    state: present
+- name: Install Proxmox Backup server
+  ansible.builtin.apt:
+    name: proxmox-backup-server

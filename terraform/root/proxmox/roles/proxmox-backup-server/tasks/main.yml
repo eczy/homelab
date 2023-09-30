@@ -1,0 +1,13 @@
+---
+- name: Check for existing datastore
+  ansible.builtin.shell:
+    cmd: proxmox-backup-manager datastore show {{datastore_name}} --output-format json
+  register: result_show_datastore
+- name: Create datastore
+  ansible.builtin.shell:
+    cmd: proxmox-backup-manager datastore create {{datastore_name}} {{datastore_path}} {{datastore_args}}
+  when: result_show_datastore.rc != 0
+- name: Update datstore
+  ansible.builtin.shell:
+    cmd: proxmox-backup-manager datastore update {{datastore_name}} {{datastore_args}}
+  when: result_show_datastore.rc == 0

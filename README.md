@@ -23,3 +23,4 @@ TODO:
 - move cloudinit stuff into common ansible role
 - edit Gitea playbook to make config read only to gitea user
 - better restic handling; e.g. init repository via terraform or something and then provision keys for host
+- single source for ansible roles

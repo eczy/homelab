@@ -47,7 +47,7 @@ variable "disks" {
     size        = string
     format      = optional(string, "raw")
     cache       = optional(string, "none")
-    backup      = optional(number, 1)
+    backup      = optional(bool, true)
     iothread    = optional(number)
     replicate   = optional(number)
     ssd         = optional(number, 1)

@@ -1,0 +1,13 @@
+---
+- hosts: gitolite
+  roles:
+  - { role: ../../../ansible/roles/bootstrap }
+  - gitolite
+  tasks:
+  - name: Create git user
+    ansible.builtin.user:
+      name: git
+  - name: Add ssh key for user git
+    ansible.posix.authorized_key:
+      user: git
+      key: "{{ lookup('file', 'gitolite_id_rsa') }}"

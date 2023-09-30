@@ -1,0 +1,5 @@
+---
+- name: Clone gitolite repo
+  ansible.builtin.git:
+    repo: 'https://github.com/sitaramc/gitolite'
+    dest: 

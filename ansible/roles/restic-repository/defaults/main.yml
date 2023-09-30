@@ -1,2 +1,5 @@
 ---
 restic_backup_script_path: /etc/restic/backup
+restic_compression: max
+restic_b2_account_id: null
+restic_b2_account_key: null

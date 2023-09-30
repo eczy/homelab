@@ -1,0 +1,4 @@
+---
+datastore_path: /backup/store0
+datastore_name: store0
+datastore_args: ""
